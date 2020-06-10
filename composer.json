@@ -1,0 +1,22 @@
+{
+    "name": "balambasik/epg",
+    "authors": [
+        {
+            "name": "balambasik",
+            "email": "balambasik@gmail.com"
+        }
+    ],
+    "require": {
+        "utg/epg-client": "0.1",
+        "miladrahimi/phprouter": "4.*",
+        "guzzlehttp/guzzle": "^6.5"
+    },
+    "autoload": {
+        "files": [
+            "config.php"
+        ],
+        "psr-4": {
+            "App\\": "app/"
+        }
+    }
+}
