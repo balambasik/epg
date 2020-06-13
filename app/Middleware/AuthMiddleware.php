@@ -12,11 +12,12 @@ class AuthMiddleware implements Middleware
 
     public function handle(ServerRequestInterface $request, \Closure $next)
     {
-        $authCacheDriver = config()["auth_cache_driver"];
-
         $auth = new Auth();
         $auth->setCheckTokenURL(config()["check_token_url"]);
-        $auth->setCacheDriver(new $authCacheDriver);
+
+        if ($authCacheDriver = config()["auth_cache_driver"]) {
+            $auth->setCacheDriver(new $authCacheDriver);
+        }
 
         $token = $request->getHeaderLine('Authorization');
 

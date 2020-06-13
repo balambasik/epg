@@ -10,11 +10,15 @@ class JWTDataParser
      */
     public static function parse($token)
     {
-        try {
-            $data = json_decode(base64_decode(str_replace('_', '/', str_replace('-', '+', explode('.', (string) $token)[1]))));
-            return is_numeric($data->exp) ? $data : null;
-        } catch (\Exception $e) {
+        $data = explode('.', (string) $token);
+        $data = str_replace(["_", "-"], ["/", "+"], $data[1] ?? "");
+        $data = base64_decode($data);
+        $data = json_decode($data);
+
+        if (json_last_error()) {
             return null;
         }
+
+        return is_numeric($data->exp) ? $data : null;
     }
 }

@@ -38,12 +38,7 @@ class AuthCacheFile implements CacheDriverInterface
     public function checkToken($token)
     {
         $tokenExpiration = @file_get_contents($this->storagePath . self::prepKey($token));
-
-        if ($tokenExpiration > time()) {
-            return true;
-        }
-
-        return false;
+        return $tokenExpiration > time();
     }
 
     /**
@@ -76,7 +71,7 @@ class AuthCacheFile implements CacheDriverInterface
      * @param $token
      * @return string
      */
-    protected static function prepKey($token)
+    private static function prepKey($token)
     {
         return md5($token);
     }
